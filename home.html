@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ghost Panda | Futuristic Resume Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-1: #061018;
+      --bg-2: #091f2f;
+      --cyan: #3ee8ff;
+      --teal: #29c7b7;
+      --ink: #eaf8ff;
+      --muted: #99b7c8;
+      --panel: rgba(10, 22, 34, 0.72);
+      --line: rgba(123, 190, 223, 0.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      color: var(--ink);
+      min-height: 100vh;
+      background:
+        radial-gradient(900px 420px at 12% 8%, rgba(62, 232, 255, 0.16), transparent 52%),
+        radial-gradient(740px 360px at 88% 20%, rgba(41, 199, 183, 0.14), transparent 56%),
+        linear-gradient(150deg, var(--bg-1), var(--bg-2));
+      overflow-x: hidden;
+    }
+
+    .grid-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(rgba(169, 218, 255, 0.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(169, 218, 255, 0.14) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(circle at center, black 55%, transparent 92%);
+    }
+
+    .shell {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+      padding: 28px 0 64px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+      padding: 14px 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Syne", sans-serif;
+      letter-spacing: 0.04em;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, var(--cyan), var(--teal));
+      box-shadow: 0 0 18px rgba(62, 232, 255, 0.7);
+    }
+
+    .pill {
+      border: 1px solid rgba(62, 232, 255, 0.34);
+      border-radius: 999px;
+      padding: 7px 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero {
+      margin-top: 42px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Syne", sans-serif;
+      font-size: clamp(34px, 5vw, 68px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
+    }
+
+    h1 .accent {
+      display: block;
+      color: var(--cyan);
+      text-shadow: 0 0 22px rgba(62, 232, 255, 0.5);
+    }
+
+    .sub {
+      margin-top: 18px;
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: clamp(15px, 1.7vw, 19px);
+      line-height: 1.55;
+    }
+
+    .actions {
+      margin-top: 26px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 14px 20px;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-primary {
+      color: #06212f;
+      background: linear-gradient(120deg, var(--cyan), #8ff9ff);
+      box-shadow: 0 12px 26px rgba(62, 232, 255, 0.38);
+    }
+
+    .btn-secondary {
+      color: var(--ink);
+      border: 1px solid rgba(135, 191, 221, 0.42);
+      background: rgba(10, 24, 36, 0.66);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+      backdrop-filter: blur(8px);
+      padding: 20px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .metric {
+      border: 1px solid rgba(120, 181, 212, 0.24);
+      border-radius: 14px;
+      padding: 14px;
+      background: rgba(8, 18, 29, 0.62);
+    }
+
+    .metric .k { color: var(--muted); font-size: 12px; }
+    .metric .v { margin-top: 4px; font-size: 24px; font-weight: 700; }
+
+    .flow {
+      margin-top: 32px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      border: 1px solid rgba(111, 173, 205, 0.27);
+      border-radius: 16px;
+      padding: 14px;
+      background: rgba(8, 17, 26, 0.62);
+      min-height: 122px;
+    }
+
+    .step b { color: var(--cyan); display: block; margin-bottom: 7px; }
+    .step p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+    .footer-note {
+      margin-top: 18px;
+      color: #7ca1b3;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .flow { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <div class="shell">
+    <nav class="nav">
+      <div class="brand"><span class="dot"></span> GHOST PANDA</div>
+      <span class="pill">Futuristic Resume Intelligence</span>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <h1>
+          AI Resume Analyzer
+          <span class="accent">One Click Launch</span>
+        </h1>
+        <p class="sub">
+          Is landing page se ek button click me Ghost Panda Resume Analyzer open hoga.
+          ATS score, keyword gaps, JD match, and resume optimization sab ek place pe.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="index.html">Open Ghost Panda Analyzer</a>
+          <a class="btn btn-secondary" href="index.html#workspaceSection">Go To Upload Section</a>
+        </div>
+        <div class="footer-note">Tip: button click karte hi analyzer same website par load ho jayega.</div>
+      </div>
+
+      <aside class="card">
+        <h3 style="margin:0; font-family:'Syne',sans-serif;">Launch Panel</h3>
+        <p style="color:var(--muted); margin:8px 0 0;">Ready-to-open entry point for your resume analyzer project.</p>
+        <div class="metric-grid">
+          <div class="metric"><div class="k">Mode</div><div class="v">Live</div></div>
+          <div class="metric"><div class="k">Analyzer</div><div class="v">Enabled</div></div>
+          <div class="metric"><div class="k">Route</div><div class="v">/index.html</div></div>
+          <div class="metric"><div class="k">UX</div><div class="v">1-Click</div></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="flow">
+      <article class="step">
+        <b>Step 1</b>
+        <p>Landing page open karo aur "Open Ghost Panda Analyzer" pe click karo.</p>
+      </article>
+      <article class="step">
+        <b>Step 2</b>
+        <p>Resume upload karo ya text paste karo, job description add karo.</p>
+      </article>
+      <article class="step">
+        <b>Step 3</b>
+        <p>Analyze pe click karo aur ATS/keyword report turant dekh lo.</p>
+      </article>
+    </section>
+  </div>
+</body>
+</html>
